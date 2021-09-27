@@ -3,14 +3,16 @@ local buildings = require('libs.buildings')
 local maps = require('libs.maps')
 local utils = require('libs.utils')
 
-local game = {}
-
+--[[
+A simple structure that will serve as a 
+starter template for our isolation (mini)games
+]]--
 BasicGame = {
+  mode = nil,
   player1 = nil,
   player2 = nil,
   levels = {}
 }
-
 function BasicGame.render(self, level)
   maps.draw_meshed_grid(level)
 end
@@ -19,12 +21,32 @@ function BasicGame.dump(self)
   print(inspect(self))
 end
 
-function game.setup()
-    fullsreen_success = love.window.setFullscreen(true)
-    display_width = love.graphics.getWidth()
-    display_height = love.graphics.getHeight()
-    love.graphics.setLineWidth(2)
+BasicGameMode = {}
+function BasicGameMode.new(self, name)
+  local gMode = {}
+  gMode.name = name or nil
+  
+  self.__index = self
+  return setmetatable(gMode, self)
+end
+function BasicGameMode.debug(self)
+  print('BasicGame.dump()')
+  print(inspect(self))
+end
+game_modes = {
+  menu = 0,
+  loading = 1,
+  cinematic = 2,
+  adventure = 3,
+  royal = 4,
+  waves = 5,
+  test = 6,
+  credits = 7,
+  quit = 8,
+  settings = 9
+}
 
+function BasicGame.setup(display_width, display_height)
     math.randomseed(os.time())
     
     mesh_order = {"a", "b", "c", "d"}
@@ -44,6 +66,7 @@ function game.setup()
     grid_2 = maps.funny_grid(display_width, display_height, grid_size)
 
     local new_game = BasicGame
+    new_game.mode = game_modes[menu]
     new_game.player1 = player1
     new_game.levels = {
       grid = grid_1,
@@ -53,5 +76,4 @@ function game.setup()
     return new_game
 end
 
-
-return game
+return BasicGame

@@ -1,21 +1,5 @@
+local inspect = require('libs.inspect')
 local maps = {}
-
-function maps.grid(width, height, size)
-    local grid = {}
-
-    for x_pos = 0, width, size do
-        for y_pos = 0, height, size do
-            local tile = {
-                TL = {x = x_pos, y = y_pos},
-                BL = {x = x_pos + size, y = y_pos},
-                TR = {x = x_pos, y = y_pos + size},
-                BR = {x = x_pos + size, y = y_pos + size}
-            }
-            table.insert(grid, tile)
-        end
-    end
-    return grid
-end
 
 function maps.draw_grid(grid)
     local tile_check = true
@@ -36,6 +20,7 @@ function maps.draw_grid(grid)
     end
 end
 
+
 function maps.funny_grid(width, height, size, offset)
     local grid = {}
 
@@ -49,6 +34,28 @@ function maps.funny_grid(width, height, size, offset)
     end
     return grid
 end
+
+function maps.grid(width, height, size)
+    local grid = {}
+    
+    print('width: ' .. inspect(width))
+    print('height: ' .. inspect(height))
+    print('size: ' .. inspect(size))
+
+    for x_pos = 0, width, size do
+        for y_pos = 0, height, size do
+            local tile = {
+                TL = {x = x_pos, y = y_pos},
+                BL = {x = x_pos + size, y = y_pos},
+                TR = {x = x_pos, y = y_pos + size},
+                BR = {x = x_pos + size, y = y_pos + size}
+            }
+            table.insert(grid, tile)
+        end
+    end
+    return grid
+end
+
 
 function maps.mesh(x, y, w, h, x_off, y_off)
     local segw = math.floor(w / 2)
