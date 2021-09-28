@@ -17,7 +17,7 @@ function Button.new(self, text, fn)
   if fn then
     btn.fn = fn
   end
-    
+
   self.__index = self
   return setmetatable(newBld, self)
 end
@@ -27,6 +27,10 @@ function Button.dump(self)
   print(inspect(self))
 end
 
+function Button.render(self)
+
+end
+
 ui.Button = Button
 
 function ui.setup()
@@ -34,7 +38,7 @@ function ui.setup()
   display_width = love.graphics.getWidth()
   display_height = love.graphics.getHeight()
   love.graphics.setLineWidth(2)
-  
+
   return {
     width = display_width, 
     height = display_height

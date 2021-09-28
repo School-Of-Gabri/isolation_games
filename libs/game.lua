@@ -16,19 +16,22 @@ BasicGame = {
 function BasicGame.render(self, level)
   maps.draw_meshed_grid(level)
 end
+
 function BasicGame.dump(self)
   print('BasicGame.dump()')
   print(inspect(self))
 end
 
 BasicGameMode = {}
+
 function BasicGameMode.new(self, name)
   local gMode = {}
   gMode.name = name or nil
-  
+
   self.__index = self
   return setmetatable(gMode, self)
 end
+
 function BasicGameMode.debug(self)
   print('BasicGame.dump()')
   print(inspect(self))
@@ -47,33 +50,28 @@ game_modes = {
 }
 
 function BasicGame.setup(display_width, display_height)
-    math.randomseed(os.time())
-    
-    mesh_order = {"a", "b", "c", "d"}
-    grid_size = 50
-    max_x_offset = 20
-    max_y_offset = 20
+  math.randomseed(os.time())
+  
+  grunt = recruits.Recruit:new{150, 10, 100}
+  powerplant = buildings.Building:new()
 
-    grunt = recruits.Recruit:new{150, 10, 100}
-    powerplant = buildings.Building:new()
+  player1 = {}
+  player1.menu = {}
+  player1.menu.units = {grunt}
+  player1.menu.buildings = {powerplant}
 
-    player1 = {}
-    player1.menu = {}
-    player1.menu.units = {grunt}
-    player1.menu.buildings = {powerplant}
+  grid_1 = maps.grid(display_width, display_height)
+  grid_2 = maps.funny_grid(display_width, display_height, grid_size)
 
-    grid_1 = maps.grid(display_width, display_height, grid_size)
-    grid_2 = maps.funny_grid(display_width, display_height, grid_size)
+  local new_game = BasicGame
+  new_game.mode = game_modes[menu]
+  new_game.player1 = player1
+  new_game.levels = {
+    grid = grid_1,
+    funny_grid = grid_2
+  }
 
-    local new_game = BasicGame
-    new_game.mode = game_modes[menu]
-    new_game.player1 = player1
-    new_game.levels = {
-      grid = grid_1,
-      funny_grid = grid_2
-    }
-    
-    return new_game
+  return new_game
 end
 
 return BasicGame

@@ -12,7 +12,7 @@ function Building.new(self)
   local newBld = BasicBuilding
   newBld.cost = 300
   newBld.health = 500
-  
+
   self.__index = self
   return setmetatable(newBld, self)
 end
