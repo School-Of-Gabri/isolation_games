@@ -2,6 +2,7 @@ local recruits = require('libs.recruits')
 local buildings = require('libs.buildings')
 local maps = require('libs.maps')
 local utils = require('libs.utils')
+local ui = require('libs.ui')
 
 --[[
 A simple structure that will serve as a 
@@ -13,8 +14,9 @@ BasicGame = {
   player2 = nil,
   levels = {}
 }
-function BasicGame.render(self, level)
-  maps.draw_meshed_grid(level)
+function BasicGame.render(self, display)
+  maps.draw_meshed_grid(self.levels.funny_grid)
+  ui.render(display.menu)
 end
 
 function BasicGame.dump(self)
@@ -36,7 +38,7 @@ function BasicGameMode.debug(self)
   print('BasicGame.dump()')
   print(inspect(self))
 end
-game_modes = {
+BasicGame.game_modes = {
   menu = 0,
   loading = 1,
   cinematic = 2,
@@ -64,7 +66,7 @@ function BasicGame.setup(display_width, display_height)
   grid_2 = maps.funny_grid(display_width, display_height, grid_size)
 
   local new_game = BasicGame
-  new_game.mode = game_modes[menu]
+  new_game.mode = BasicGame.game_modes[menu]
   new_game.player1 = player1
   new_game.levels = {
     grid = grid_1,
