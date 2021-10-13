@@ -34,12 +34,14 @@ function ui.setup()
   }
 end
 
-function ui.render(buttons)
+function ui.srender(buttons)
   print('ui.render()')
   -- print('buttons: ' .. inspect(buttons))
   
   for btn_id, button in ipairs(buttons) do
     print('Button ' .. btn_id .. ': ' .. button.text)
+    button:render()
+    break
   end
 end
 
