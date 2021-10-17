@@ -13,7 +13,8 @@ BasicRecruit.__index = BasicRecruit
 
 -- Recruit
 local Recruit = general.class(function(Recruit)
-    function Recruit.new(self, name)
+    function Recruit.new(name)
+        local self = setmetatable({}, Recruit)
         self.name = name
         self.cost = BasicRecruit.cost
         self.speed = BasicRecruit.speed
@@ -23,6 +24,7 @@ local Recruit = general.class(function(Recruit)
         self.position = {}
         self.position.x = 0
         self.position.y = 0
+        return self
     end
     function Recruit.spawn(self, x, y)
         self.position.x = x

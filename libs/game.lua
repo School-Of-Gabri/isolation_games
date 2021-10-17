@@ -11,16 +11,15 @@ function setup(display_width, display_height)
   grunt = recruits.Recruit:new{150, 10, 100}
   powerplant = buildings.Building:new()
 
-  player1 = {}
-  player1.menu = {}
-  player1.menu.units = {grunt}
-  player1.menu.buildings = {powerplant}
-
   grid_1 = maps.grid(display_width, display_height)
   grid_2 = maps.funny_grid(display_width, display_height, grid_size)
 
   local new_game = Game.new('Isolation games - Game 1')
-  new_game.player1 = player1
+  new_game.player1 = {}
+  new_game.player1.menu = {}
+  new_game.player1.menu.units = {grunt}
+  new_game.player1.menu.buildings = {powerplant}
+
   new_game.levels = {
     grid = grid_1,
     funny_grid = grid_2

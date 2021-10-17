@@ -8,8 +8,10 @@ states, such as: menu, settings, in game, paused, etc...
 
 -- GameMode
 local GameMode = general.class(function(GameMode)
-    function GameMode.new(self, name)
+    function GameMode.new(name)
+        local self = setmetatable({}, GameMode)
         self.name = name
+        return self
     end
     function GameMode.dump(self)
       print('GameMode dump()')

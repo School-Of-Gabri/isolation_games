@@ -33,17 +33,19 @@ BasicGame.__index = BasicGame
 
 -- Game
 local Game = general.class(function(Game)
-    function Game.new(self, name)
+    function Game.new(name)
+        local self = setmetatable({}, Game)
         self.name = name
         self.mode = BasicGame.game_modes.starting
 
         self.position = {}
         self.position.x = 0
         self.position.y = 0
+        return self
     end
     function Game.spawn(self, x, y)
-        self.x = x
-        self.y = y
+        self.position.x = x
+        self.position.y = y
     end
     function Game.render(self, display)
         print('BasicGame render(): ' .. self.name)

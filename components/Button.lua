@@ -9,7 +9,8 @@ BasicButton.__index = BasicButton
 
 -- Button
 local Button = general.class(function(Button)
-    function Button.new(self, name, text, fn)
+    function Button.new(name, text, fn)
+        local self = setmetatable({}, Button)
         self.name = name
         self.text = text
         self.fn = fn
@@ -17,7 +18,7 @@ local Button = general.class(function(Button)
         self.position = {}
         self.position.x = 0
         self.position.y = 0
-        
+        return self
     end
     function Button.spawn(self, x, y)
         self.position.x = x
